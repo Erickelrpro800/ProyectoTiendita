@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
  * @author chris
  */
 public class clsArticulo {
+    
     private String codigo;
     private String descripcion;
     private Double precio;
@@ -55,27 +56,26 @@ public class clsArticulo {
     }
     
     public void actualizar(String newCodigo, String newDescripcion, String newPrecio){
+        
         String nuevaLinea = newCodigo + "|" + newDescripcion + "|" + newPrecio;
         String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio;
         
-        System.out.println("Nuevo valores" + nuevaLinea);
-        System.out.println("Valores Originales" + lineaOriginal);
+        System.out.println("Nuevos valores:" + nuevaLinea);
+        System.out.println("Valores Originales:" + lineaOriginal);
         
-        mArticulo mArticle = new mArticulo ();
-        mArticle.update(lineaOriginal, nuevaLinea, "listado_articulos.txt");
-
+        mArticulo mArticle = new mArticulo();
+        mArticle.update(lineaOriginal, nuevaLinea, "articulos.txt");
     }
     
     public void eliminar(){
+        
         String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio;
         
-        System.out.println("Valores Originales" + lineaOriginal);
+        System.out.println("Valores Originales:" + lineaOriginal);
         
-        mArticulo mArticle = new mArticulo ();
-        mArticle.delete(lineaOriginal, "listado_articulos.txt");
-
-    }
-    
+        mArticulo mArticle = new mArticulo();
+        mArticle.delete(lineaOriginal, "articulos.txt");
+    }  
 }
     
 

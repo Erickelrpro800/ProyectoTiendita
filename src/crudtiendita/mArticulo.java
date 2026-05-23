@@ -16,13 +16,14 @@ import java.util.ArrayList;
  * @author chris
  */
 public class mArticulo {
+    
     public void insertar(String cadenaArticulo){
         
-        try {
+            try {
             // Esta linea crea el archivo donde se guarda la informacion
-            FileWriter archivo = new FileWriter("articulos.txt",true);
+               FileWriter archivo = new FileWriter("articulos.txt",true);
             // Buffer temporal que se encarga de guardar los datos en el archivo
-            BufferedWriter buffer = new BufferedWriter(archivo);
+               BufferedWriter buffer = new BufferedWriter(archivo);
             
             // Escribe en el archivo de texto
             buffer.write(cadenaArticulo); 
@@ -31,7 +32,6 @@ public class mArticulo {
             // Guarda los registros en el archivo
             buffer.close();
             
-
         } catch (IOException e) {
             //lblSaludo.setText("Error al guardar el archivo: " + e.getMessage());
         }
@@ -46,8 +46,7 @@ public class mArticulo {
             while ((linea = br.readLine()) != null){
                 String[] datos = linea.split("\\|");
                 String datoVisual = "Codigo: " + datos[0] + "| Descripcion: " + datos[1] + "| Precio: " + datos[2];
-                listaRegistros.add(datoVisual);                
-            
+                listaRegistros.add(datoVisual);                            
             }
         }catch(IOException e){
             System.out.println("Mensaje de error" + e.getMessage());
@@ -62,31 +61,30 @@ public class mArticulo {
         java.io.File fileTemporal = new java.io.File("temporal.txt");
         
         String lineaLeida;
-            Boolean actualizado = false;
+        Boolean actualizado = false;
         
         try(BufferedReader br = new BufferedReader(new FileReader(fileOriginal));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemporal)); ){
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemporal)); ){
                            
-            while((lineaLeida = br.readLine()) != null){
-                if(lineaLeida.equals(lineaActual)){
-                    bw.write(lineaNueva);
-                    actualizado = true;
-                } else {
-                    bw.write(lineaLeida);
+                while((lineaLeida = br.readLine()) != null){
+                    if(lineaLeida.equals(lineaActual)){
+                        bw.write(lineaNueva);
+                        actualizado = true;
+                    } else {
+                         bw.write(lineaLeida);
+                    }
+                    bw.newLine();
                 }
-                bw.newLine();
-            }
-    }catch(Exception e){
-        System.out.println("Error al actualizar" + e.getMessage());
-        
-    }
-        
+            }catch(Exception e){
+                System.out.println("Error al actualizar" + e.getMessage());      
+            }    
         if(actualizado){
             if(fileOriginal.delete()){
-            fileTemporal.renameTo(fileOriginal);
-            System.out.println("Registro Actualizado");
+                fileTemporal.renameTo(fileOriginal);
+                System.out.println("Registro Actualizado");
+                
             } else {
-            System.out.println("Error : No se pudo borrar el archivo");
+                System.out.println("Error: No se pudo borrar el archivo");
             }
         } else{
             fileTemporal.delete();
@@ -100,38 +98,36 @@ public class mArticulo {
         java.io.File fileTemporal = new java.io.File("temporal.txt");
         
         String lineaLeida;
-            Boolean eliminado = false;
+        Boolean eliminado = false;
         
-        try(BufferedReader br = new BufferedReader(new FileReader(fileOriginal));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemporal)); ){
-                           
-            while((lineaLeida = br.readLine()) != null){
-                if(lineaLeida.equals(lineaActual)){
+        try(BufferedReader br = new BufferedReader(new FileReader (fileOriginal));
+                BufferedWriter bw = new BufferedWriter(new FileWriter (fileTemporal)); ){
+                
+                while((lineaLeida = br.readLine()) != null){
+                    if(lineaLeida.equals(lineaActual)){
+                        
+                        eliminado = true;
+                    } else { 
+                         bw.write(lineaLeida);
+                         bw.newLine();
+                    }
                     
-                    eliminado = true;
-                } else {
-                    bw.write(lineaLeida);
-                    bw.newLine();
                 }
+            }catch(Exception e){
+                System.out.println("Error al eliminar" + e.getMessage());
             }
-    }catch(Exception e){
-        System.out.println("Error al eliminar" + e.getMessage());
-        
-    }
-        
         if(eliminado){
             if(fileOriginal.delete()){
-            fileTemporal.renameTo(fileOriginal);
-            System.out.println("Registro Eliminado");
+                fileTemporal.renameTo(fileOriginal);
+                System.out.println("Registro Eliminado");
+            
             } else {
-            System.out.println("Error : No se pudo borrar el archivo");
+                System.out.println("Error: No se pudo borrar el archivo");
             }
         } else{
             fileTemporal.delete();
             System.out.println("No se encontro el registro");
-        }    
+        } 
     }
         
 }
-    
-
