@@ -1,3 +1,8 @@
-1005|Sprite| 20.0
+1005|Sprite|20.0
 17006063|Peñafiel naranjada|20.0
 2606|Fresca|20.0
+482917|Sabritas Adobadas|21.0
+650384|Coca Cola 600 ml|19.0
+119572|Maruchan Instant Lunch|18.0
+803461|Gansito Marinela|24.0
+274905|Leche Lala Entera 1L|32.0

@@ -64,7 +64,7 @@ public class clsArticulo {
         System.out.println("Valores Originales:" + lineaOriginal);
         
         mArticulo mArticle = new mArticulo();
-        mArticle.update(lineaOriginal, nuevaLinea, "articulos.txt");
+        mArticle.update(lineaOriginal, nuevaLinea, "Articulos.txt");
     }
     
     public void eliminar(){
@@ -74,7 +74,7 @@ public class clsArticulo {
         System.out.println("Valores Originales:" + lineaOriginal);
         
         mArticulo mArticle = new mArticulo();
-        mArticle.delete(lineaOriginal, "articulos.txt");
+        mArticle.delete(lineaOriginal, "Articulos.txt");
     }  
 }
     

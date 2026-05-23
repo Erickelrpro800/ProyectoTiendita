@@ -649,7 +649,7 @@ public class frmTiendita extends javax.swing.JFrame {
             }
 
             // 4. Agregamos un Título
-            documento.add(new Paragraph("Reporte Gerencial de Inventario - Taller 360"));
+            documento.add(new Paragraph("Reporte Gerencial de Inventario - La Tiendita"));
             documento.add(new Paragraph(" ")); // Un salto de línea para dar espacio
 
             // 5. Creamos la estructura tabular (3 columnas)
@@ -773,7 +773,7 @@ public class frmTiendita extends javax.swing.JFrame {
             // 2. Agregamos el Logo (Alineado a la derecha)
             try {
                 Image logo = Image.getInstance("logo.png");
-                logo.scaleToFit(120, 80);
+                logo.scaleToFit(200, 100);
                 logo.setAlignment(Element.ALIGN_RIGHT);
                 documento.add(logo);
             } catch (Exception e) {
@@ -781,7 +781,7 @@ public class frmTiendita extends javax.swing.JFrame {
             }
 
             // 3. Encabezado Corporativo de la Empresa
-            Paragraph nombreEmpresa = new Paragraph("TALLER 360 S.A. DE C.V.", fuenteTitulo);
+            Paragraph nombreEmpresa = new Paragraph("La Tiendita", fuenteTitulo);
             nombreEmpresa.setAlignment(Element.ALIGN_LEFT);
             documento.add(nombreEmpresa);
 
