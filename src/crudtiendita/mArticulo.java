@@ -21,7 +21,7 @@ public class mArticulo {
         
             try {
             // Esta linea crea el archivo donde se guarda la informacion
-               FileWriter archivo = new FileWriter("articulos.txt",true);
+               FileWriter archivo = new FileWriter("Articulos.txt",true);
             // Buffer temporal que se encarga de guardar los datos en el archivo
                BufferedWriter buffer = new BufferedWriter(archivo);
             
@@ -41,7 +41,7 @@ public class mArticulo {
         //Variable donde se guarda los registros de mi archivo        
         ArrayList<String> listaRegistros = new ArrayList<>();
         
-        try(BufferedReader br = new BufferedReader( new FileReader("articulos.txt"))){
+        try(BufferedReader br = new BufferedReader( new FileReader("Articulos.txt"))){
             String linea;
             while ((linea = br.readLine()) != null){
                 String[] datos = linea.split("\\|");
@@ -100,34 +100,36 @@ public class mArticulo {
         String lineaLeida;
         Boolean eliminado = false;
         
-        try(BufferedReader br = new BufferedReader(new FileReader (fileOriginal));
-                BufferedWriter bw = new BufferedWriter(new FileWriter (fileTemporal)); ){
-                
+        try(BufferedReader br = new BufferedReader(new FileReader(fileOriginal));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemporal)); ){
+                           
                 while((lineaLeida = br.readLine()) != null){
                     if(lineaLeida.equals(lineaActual)){
-                        
-                        eliminado = true;
-                    } else { 
-                         bw.write(lineaLeida);
-                         bw.newLine();
-                    }
                     
+                    eliminado = true;
+                } else {
+                    bw.write(lineaLeida);
+                    bw.newLine();
                 }
-            }catch(Exception e){
-                System.out.println("Error al eliminar" + e.getMessage());
             }
+    }catch(Exception e){
+        System.out.println("Error al eliminar" + e.getMessage());
+        
+    }
+        
         if(eliminado){
             if(fileOriginal.delete()){
-                fileTemporal.renameTo(fileOriginal);
-                System.out.println("Registro Eliminado");
-            
+            fileTemporal.renameTo(fileOriginal);
+            System.out.println("Registro Eliminado");
             } else {
-                System.out.println("Error: No se pudo borrar el archivo");
+            System.out.println("Error : No se pudo borrar el archivo");
             }
         } else{
             fileTemporal.delete();
             System.out.println("No se encontro el registro");
-        } 
+        }    
     }
         
 }
+    
+

@@ -571,10 +571,10 @@ public class frmTiendita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiImportarActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(this, "Es importante que el archivo a importar tenga el nombre Inventario.csv y se encuentre en la raiz del proyecto", "Importacion de Datos desde archivo CSV", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int respuesta = JOptionPane.showConfirmDialog(this, "Es importante que el archivo a importar tenga el nombre Articulos.csv y se encuentre en la raiz del proyecto", "Importacion de Datos desde archivo CSV", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(respuesta == JOptionPane.YES_OPTION){
-            clsCsv cCsv = new clsCsv();
-            cCsv.importarDatos();
+            clsCSV2 cCSV2 = new clsCSV2();
+            cCSV2.importarDatos();
         }
     }//GEN-LAST:event_jmiImportarActionPerformed
 
@@ -584,7 +584,7 @@ public class frmTiendita extends javax.swing.JFrame {
             List<clsArticulo> listaArticulos = new ArrayList<>();
 
             // 2. Abrimos el archivo de texto plano para lectura
-            BufferedReader br = new BufferedReader(new FileReader("articulos.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("Articulos.txt"));
             String linea;
 
             // 3. Recorremos el archivo secuencial línea por línea
@@ -662,7 +662,7 @@ public class frmTiendita extends javax.swing.JFrame {
             tabla.addCell("Estado");
 
             // 7. Toma los datos del .txt y los muestra en el PDF
-            BufferedReader br = new BufferedReader(new FileReader("articulos.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("Articulos.txt"));
             String linea;
 
             int articulosEconomicos = 0;
@@ -810,7 +810,7 @@ public class frmTiendita extends javax.swing.JFrame {
             }
 
             // 6. Lectura de datos desde el archivo .txt
-            BufferedReader br = new BufferedReader(new FileReader("articulos.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("Articulos.txt"));
             String linea;
             double totalInversion = 0;
 
