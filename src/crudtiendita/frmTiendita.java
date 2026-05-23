@@ -4,6 +4,38 @@
  */
 package crudtiendita;
 
+import javax.swing.JOptionPane;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Element;
+import java.io.FileOutputStream;
+
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.BaseColor;
+import java.text.SimpleDateFormat;
+import com.itextpdf.text.Phrase;
+import java.util.Date;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
+import java.io.File;
+
 /**
  *
  * @author FAMILIA
@@ -18,6 +50,8 @@ public class frmTiendita extends javax.swing.JFrame {
     public frmTiendita() {
         initComponents();
     }
+    
+    clsArticulo updateArticulo;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,6 +92,13 @@ public class frmTiendita extends javax.swing.JFrame {
         lblDescripcion = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jmArchivo = new javax.swing.JMenu();
+        jmiImportar = new javax.swing.JMenuItem();
+        jmiExportar = new javax.swing.JMenuItem();
+        jmiExportar1 = new javax.swing.JMenuItem();
+        jmiReporteBonito = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -270,19 +311,49 @@ public class frmTiendita extends javax.swing.JFrame {
                     .addComponent(lblPrecio))
                 .addGap(39, 39, 39)
                 .addComponent(btnEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
+
+        jmArchivo.setText("Archivo");
+        jmArchivo.addActionListener(this::jmArchivoActionPerformed);
+
+        jmiImportar.setText("Importar (CSV)");
+        jmiImportar.addActionListener(this::jmiImportarActionPerformed);
+        jmArchivo.add(jmiImportar);
+
+        jmiExportar.setText("Exportar (JSON)");
+        jmiExportar.addActionListener(this::jmiExportarActionPerformed);
+        jmArchivo.add(jmiExportar);
+
+        jmiExportar1.setText("Exportar (PDF)");
+        jmiExportar1.addActionListener(this::jmiExportar1ActionPerformed);
+        jmArchivo.add(jmiExportar1);
+
+        jmiReporteBonito.setText("Reporte Bonito (PDF)");
+        jmiReporteBonito.addActionListener(this::jmiReporteBonitoActionPerformed);
+        jmArchivo.add(jmiReporteBonito);
+
+        jMenuBar2.add(jmArchivo);
+
+        jMenu4.setText("BY Christopher & Erick");
+        jMenuBar2.add(jMenu4);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -346,6 +417,297 @@ public class frmTiendita extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void jmiImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiImportarActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "Es importante que el archivo a importar tenga el nombre Inventario.csv y se encuentre en la raiz del proyecto", "Importacion de Datos desde archivo CSV", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(respuesta == JOptionPane.YES_OPTION){
+            clsCsv cCsv = new clsCsv();
+            cCsv.importarDatos();
+        }
+    }//GEN-LAST:event_jmiImportarActionPerformed
+
+    private void jmiExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExportarActionPerformed
+        try {
+            // 1. Preparamos una lista (La "caja") para guardar todos los artículos temporalmente en RAM
+            List<clsArticulo> listaArticulos = new ArrayList<>();
+
+            // 2. Abrimos el archivo de texto plano para lectura
+            BufferedReader br = new BufferedReader(new FileReader("articulos.txt"));
+            String linea;
+
+            // 3. Recorremos el archivo secuencial línea por línea
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+
+                // Verificamos que la línea tenga las 3 partes para evitar errores
+                if (datos.length >= 3) {
+                    // Parseamos el precio a double
+                    double precioParseado = Double.parseDouble(datos[2]);
+
+                    // Creamos el objeto y lo metemos a la lista
+                    clsArticulo nuevoArticulo = new clsArticulo(datos[0], datos[1], precioParseado);
+                    listaArticulos.add(nuevoArticulo);
+                }
+            }
+            br.close(); // Siempre cerrar el flujo de lectura
+
+            // ==========================================
+            // 4. LA MAGIA DE GSON (Serialización Masiva)
+            // ==========================================
+
+            // TIP DE INGENIERÍA: En lugar de usar 'new Gson()', usamos GsonBuilder
+            // con 'setPrettyPrinting' para que el archivo salga formateado con tabulaciones
+            // y saltos de línea (ideal para que los alumnos lo puedan leer fácil).
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            // Convertimos TODA la lista a un solo String con formato JSON
+            String jsonFinal = gson.toJson(listaArticulos);
+
+            // 5. Guardamos el String gigante en un archivo nuevo .json
+            BufferedWriter bw = new BufferedWriter(new FileWriter("respaldo_articulos.json"));
+            bw.write(jsonFinal);
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "¡Exportación masiva a JSON exitosa!");
+
+        } catch (Exception e) {
+            System.out.println(" Error durante la exportación a JSON: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jmiExportarActionPerformed
+
+    private void jmiExportar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExportar1ActionPerformed
+        Document documento = new Document();
+        try {
+            // 2. Preparamos el escritor para guardar el archivo en el disco duro
+            PdfWriter.getInstance(documento, new FileOutputStream("Reporte_Inventario.pdf"));
+
+            // 3. Abrimos el documento para empezar a escribirle
+            documento.open();
+
+            //Agregar imagen al reporte
+            try{
+                Image logo = Image.getInstance("logo.png");
+                logo.scaleToFit(240, 120);
+                logo.setAlignment(Element.ALIGN_LEFT);
+                documento.add(logo);
+            }catch(Exception ex){
+                System.out.println("Aviso: No se encontró la imagen del logo");
+
+            }
+
+            // 4. Agregamos un Título
+            documento.add(new Paragraph("Reporte Gerencial de Inventario - Taller 360"));
+            documento.add(new Paragraph(" ")); // Un salto de línea para dar espacio
+
+            // 5. Creamos la estructura tabular (3 columnas)
+            PdfPTable tabla = new PdfPTable(4);
+
+            // 6. Agregamos los encabezados de la tabla
+            tabla.addCell("CÓDIGO");
+            tabla.addCell("DESCRIPCIÓN");
+            tabla.addCell("PRECIO ($)");
+            tabla.addCell("Estado");
+
+            // 7. Toma los datos del .txt y los muestra en el PDF
+            BufferedReader br = new BufferedReader(new FileReader("articulos.txt"));
+            String linea;
+
+            int articulosEconomicos = 0;
+            int articulosPremium = 0;
+
+            while ((linea = br.readLine()) != null){
+
+                String[] datos = linea.split("\\|");
+
+                if(datos.length >= 3){
+
+                    tabla.addCell(datos[0]);
+                    tabla.addCell(datos[1]);
+                    tabla.addCell(datos[2]);
+
+                    // CONVERTIR PRECIO
+                    double precio = Double.parseDouble(datos[2]);
+
+                    // CONTAR SEGÚN EL PRECIO
+                    if(precio <= 500){
+                        articulosEconomicos++;
+                    }else{
+                        articulosPremium++;
+                    }
+
+                    // Estado aleatorio
+                    if (Math.random() > 0.5){
+                        tabla.addCell("Agotado");
+                    }else{
+                        tabla.addCell("Disponible");
+                    }
+                }
+            }
+
+            documento.add(tabla);
+
+            // ===============================
+            // CREAR DATASET
+            // ===============================
+
+            DefaultPieDataset dataset = new DefaultPieDataset();
+
+            dataset.setValue("Económicos (<= $500)", articulosEconomicos);
+            dataset.setValue("Premium (> $500)", articulosPremium);
+
+            // ===============================
+            // CREAR GRAFICA
+            // ===============================
+
+            JFreeChart grafica = ChartFactory.createPieChart(
+                "Análisis de Precios de Inventario",
+                dataset,
+                true,
+                true,
+                false
+            );
+
+            // ===============================
+            // GUARDAR PNG TEMPORAL
+            // ===============================
+
+            File archivoTemporal = new File("grafica_temp.png");
+
+            ChartUtils.saveChartAsPNG(
+                archivoTemporal,
+                grafica,
+                500,
+                300
+            );
+
+            // ===============================
+            // INSERTAR IMAGEN EN PDF
+            // ===============================
+
+            Image imagenGrafica = Image.getInstance("grafica_temp.png");
+
+            imagenGrafica.scaleToFit(500, 300);
+
+            documento.add(new Paragraph(" "));
+            documento.add(imagenGrafica);
+
+            // OPCIONAL: BORRAR IMAGEN TEMPORAL
+            archivoTemporal.delete();
+
+            // 9. Cerramos el documento (¡Importantísimo para que se guarde el archivo!)
+            documento.close();
+
+            // Mensaje de éxito para el usuario
+            javax.swing.JOptionPane.showMessageDialog(this, "¡PDF generado con éxito en la carpeta del proyecto!");
+
+        } catch (Exception e) {
+            System.out.println("Error al generar el PDF: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jmiExportar1ActionPerformed
+
+    private void jmiReporteBonitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteBonitoActionPerformed
+        Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+        Font fuenteSubtitulo = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.DARK_GRAY);
+        Font fuenteCabeceraTabla = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
+
+        Document documento = new Document();
+
+        try {
+            // Preparamos el escritor
+            PdfWriter.getInstance(documento, new FileOutputStream("Reporte_Inventario.pdf"));
+            documento.open();
+
+            // 2. Agregamos el Logo (Alineado a la derecha)
+            try {
+                Image logo = Image.getInstance("logo.png");
+                logo.scaleToFit(120, 80);
+                logo.setAlignment(Element.ALIGN_RIGHT);
+                documento.add(logo);
+            } catch (Exception e) {
+                System.out.println("Aviso: No se encontró la imagen del logo.");
+            }
+
+            // 3. Encabezado Corporativo de la Empresa
+            Paragraph nombreEmpresa = new Paragraph("TALLER 360 S.A. DE C.V.", fuenteTitulo);
+            nombreEmpresa.setAlignment(Element.ALIGN_LEFT);
+            documento.add(nombreEmpresa);
+
+            Paragraph tituloReporte = new Paragraph("Reporte Gerencial de Inventario", fuenteSubtitulo);
+            documento.add(tituloReporte);
+
+            // Agregamos la fecha y hora exacta del reporte
+            String fechaActual = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
+            Paragraph fecha = new Paragraph("Fecha de impresión: " + fechaActual, fuenteSubtitulo);
+            fecha.setSpacingAfter(20f); // Damos 20 puntos de espacio antes de que empiece la tabla
+            documento.add(fecha);
+
+            // 4. Mejoramos la estructura de la Tabla
+            PdfPTable tabla = new PdfPTable(4);
+            tabla.setWidthPercentage(100); // El ancho de la hoja
+            tabla.setWidths(new float[]{2f, 5f, 2f, 2f}); // Tamaños relativos la descripción (5f)
+
+            // 5. Cabeceras con Estilo y Color de Fondo
+            String[] cabeceras = {"CÓDIGO", "DESCRIPCIÓN", "PRECIO ($)", "STATUS"};
+            for (String texto : cabeceras) {
+                PdfPCell celda = new PdfPCell(new Phrase(texto, fuenteCabeceraTabla));
+                celda.setBackgroundColor(new BaseColor(41, 128, 185)); // Un azul
+                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celda.setPadding(8f); // Agregamos especiado a las cabeceras
+                tabla.addCell(celda);
+            }
+
+            // 6. Lectura de datos desde el archivo .txt
+            BufferedReader br = new BufferedReader(new FileReader("listado_articulos.txt"));
+            String linea;
+            double totalInversion = 0;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+                if (datos.length >= 3) {
+
+                    // Usamos PdfPCell para inyectar los datos, así podemos alinear los textos
+                    tabla.addCell(new PdfPCell(new Phrase(datos[0])));
+                    tabla.addCell(new PdfPCell(new Phrase(datos[1])));
+
+                    // El precio lo alineamos a la derecha (estándar contable)
+                    PdfPCell celdaPrecio = new PdfPCell(new Phrase("$" + datos[2]));
+                    celdaPrecio.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    tabla.addCell(celdaPrecio);
+
+                    try {
+                        totalInversion += Double.parseDouble(datos[2]);
+                    } catch (Exception e) {}
+
+                    String status = (Math.random() > 0.5) ? "Disponible" : "Agotado";
+                    PdfPCell celdaStatus = new PdfPCell(new Phrase(status));
+                    celdaStatus.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    tabla.addCell(celdaStatus);
+                }
+            }
+            br.close();
+
+            // Inyectamos la tabla al documento
+            documento.add(tabla);
+
+            // 7. Resaltamos el Total al final del reporte
+            Font fuenteTotal = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.RED);
+            Paragraph textoTotal = new Paragraph("\nInversión Total en Inventario: $" + String.format("%.2f", totalInversion), fuenteTotal);
+            textoTotal.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(textoTotal);
+
+            documento.close();
+            javax.swing.JOptionPane.showMessageDialog(this, "¡PDF generado con éxito en la carpeta del proyecto!");
+
+        } catch (Exception e) {
+            System.out.println("Error al generar el PDF: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jmiReporteBonitoActionPerformed
+
+    private void jmArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmArchivoActionPerformed
+
+    }//GEN-LAST:event_jmArchivoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -386,12 +748,19 @@ public class frmTiendita extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenu jmArchivo;
+    private javax.swing.JMenuItem jmiExportar;
+    private javax.swing.JMenuItem jmiExportar1;
+    private javax.swing.JMenuItem jmiImportar;
+    private javax.swing.JMenuItem jmiReporteBonito;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblPrecio;

@@ -20,7 +20,7 @@ public class mArticulo {
         
         try {
             // Esta linea crea el archivo donde se guarda la informacion
-            FileWriter archivo = new FileWriter("inventario.txt",true);
+            FileWriter archivo = new FileWriter("articulos.txt",true);
             // Buffer temporal que se encarga de guardar los datos en el archivo
             BufferedWriter buffer = new BufferedWriter(archivo);
             
@@ -41,7 +41,7 @@ public class mArticulo {
         //Variable donde se guarda los registros de mi archivo        
         ArrayList<String> listaRegistros = new ArrayList<>();
         
-        try(BufferedReader br = new BufferedReader( new FileReader("inventario.txt"))){
+        try(BufferedReader br = new BufferedReader( new FileReader("articulos.txt"))){
             String linea;
             while ((linea = br.readLine()) != null){
                 String[] datos = linea.split("\\|");
