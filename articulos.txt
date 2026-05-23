@@ -1,1 +1,3 @@
-0620|caracol| 100.0
+1005|Sprite| 20.0
+17006063|Peñafiel naranjada|20.0
+2606|Fresca|20.0
