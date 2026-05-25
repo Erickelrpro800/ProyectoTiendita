@@ -25,7 +25,7 @@ public class clsCSV2 {
                 String[] datos = linea.split(",");
                 
                 clsArticulo cArticulo = new clsArticulo(
-                    datos[0], datos[1], Double.parseDouble(datos[2]));
+                    datos[0], datos[1], Double.parseDouble(datos[2]), datos[3], Double.parseDouble(datos[4]));
                 cArticulo.guardar();      
             }
             br.close();

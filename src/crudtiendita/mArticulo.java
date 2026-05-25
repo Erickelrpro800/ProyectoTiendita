@@ -45,7 +45,7 @@ public class mArticulo {
             String linea;
             while ((linea = br.readLine()) != null){
                 String[] datos = linea.split("\\|");
-                String datoVisual = "Codigo: " + datos[0] + "| Descripcion: " + datos[1] + "| Precio: " + datos[2];
+                String datoVisual = "Codigo: " + datos[0] + "| Descripcion: " + datos[1] + "| Precio: " + datos[2] + "| Cantidad: " + datos[3] + "| Venta: " + datos[4];
                 listaRegistros.add(datoVisual);                            
             }
         }catch(IOException e){

@@ -16,19 +16,19 @@ public class clsArticulo {
     private String codigo;
     private String descripcion;
     private Double precio;
+    private String cantidad;
+    private Double venta;
     
-    public clsArticulo(String codigo, String descripcion, Double precio){
+    public clsArticulo(String codigo, String descripcion, Double precio, String cantidad, Double precioventa){
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.precio = precio;
-    }
-    
-    public clsArticulo(){
-        
+        this.cantidad = cantidad;
+        this.venta = precioventa;
     }
     
     public String aTexto(){
-        String articulo = this.codigo + "|" + this.descripcion + "|" + this.precio;
+        String articulo = this.codigo + "|" + this.descripcion + "|" + this.precio + "|" + this.cantidad + "|" + this.venta;
         return articulo;
     }
     
@@ -58,7 +58,7 @@ public class clsArticulo {
     public void actualizar(String newCodigo, String newDescripcion, String newPrecio){
         
         String nuevaLinea = newCodigo + "|" + newDescripcion + "|" + newPrecio;
-        String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio;
+        String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio + "|" + this.cantidad + "|" + this.venta;
         
         System.out.println("Nuevos valores:" + nuevaLinea);
         System.out.println("Valores Originales:" + lineaOriginal);
@@ -69,7 +69,7 @@ public class clsArticulo {
     
     public void eliminar(){
         
-        String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio;
+        String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio + "|" + this.cantidad + "|" + this.venta;
         
         System.out.println("Valores Originales:" + lineaOriginal);
         
