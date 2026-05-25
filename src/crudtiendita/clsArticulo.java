@@ -19,6 +19,10 @@ public class clsArticulo {
     private String cantidad;
     private Double venta;
     
+    public clsArticulo(){
+        
+    }
+    
     public clsArticulo(String codigo, String descripcion, Double precio, String cantidad, Double precioventa){
         this.codigo = codigo;
         this.descripcion = descripcion;
@@ -55,9 +59,9 @@ public class clsArticulo {
         return modelLista;
     }
     
-    public void actualizar(String newCodigo, String newDescripcion, String newPrecio){
+    public void actualizar(String newCodigo, String newDescripcion, String newPrecio, String newCantidad, String newVenta){
         
-        String nuevaLinea = newCodigo + "|" + newDescripcion + "|" + newPrecio;
+        String nuevaLinea = newCodigo + "|" + newDescripcion + "|" + newPrecio + "|" + newCantidad + "|" + newVenta;
         String lineaOriginal = this.codigo + "|" + this.descripcion + "|" + this.precio + "|" + this.cantidad + "|" + this.venta;
         
         System.out.println("Nuevos valores:" + nuevaLinea);

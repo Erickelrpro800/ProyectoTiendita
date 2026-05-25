@@ -408,7 +408,7 @@ public class frmTiendita extends javax.swing.JFrame {
                     .addComponent(txtDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(txtPrecio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -600,8 +600,8 @@ public class frmTiendita extends javax.swing.JFrame {
                             .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardar))
@@ -956,7 +956,7 @@ public class frmTiendita extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        clsArticulo cArticulo = new clsArticulo(txtCodigo.getText(),txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()),txtCantidad.getText(), Double.parseDouble(txtVenta.getText());
+        clsArticulo cArticulo = new clsArticulo(txtCodigo.getText(), txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()), txtCantidad.getText(), Double.parseDouble(txtVenta.getText()));
         cArticulo.guardar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -982,7 +982,7 @@ public class frmTiendita extends javax.swing.JFrame {
 
     private void btnBuscar12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar12ActionPerformed
         clsArticulo cArticulo = new clsArticulo();
-        lstArticulo12.setModel(cArticulo.llenarLista());
+        lstArticulo12.setModel( cArticulo.llenarLista());
     }//GEN-LAST:event_btnBuscar12ActionPerformed
 
     private void lstArticulo12ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstArticulo12ValueChanged
@@ -999,7 +999,7 @@ public class frmTiendita extends javax.swing.JFrame {
             txtPrecio1.setText(precio);
             txtCantidad1.setText(cantidad);
             txtVenta1.setText(precioventa);
-            updateArticulo = new clsArticulo(codigo,descripcion,Double.parseDouble(precio),cantidad, Double.parseDouble(venta));
+            updateArticulo = new clsArticulo(codigo,descripcion,Double.parseDouble(precio),cantidad, Double.parseDouble(precioventa));
             lblCodigo2.setText(codigo);
             lblDescripcion2.setText(descripcion);
             lblPrecio2.setText(precio);
