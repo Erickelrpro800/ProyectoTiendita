@@ -1,6 +1,6 @@
-CODIGO,DESCRIPCION,PRECIO,
-482917,Sabritas Adobadas,21,
-650384,Coca Cola 600 ml,19,
-119572,Maruchan Instant Lunch,18,
-803461,Gansito Marinela,24,
-274905,Leche Lala Entera 1L,32,
+CODIGO,DESCRIPCION,PRECIO,CANTIDAD,PRECIO DE VENTA
+482917,Sabritas Adobadas,21,20,32
+650384,Coca Cola 600 ml,19,20,29
+119572,Maruchan Instant Lunch,18,25,27
+803461,Gansito Marinela,24,15,36
+274905,Leche Lala Entera 1L,32,30,48

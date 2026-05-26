@@ -1,10 +1,8 @@
-1005|Sprite|20.0
-17006063|Peñafiel naranjada|20.0
-2606|Fresca|20.0
-2020|Media Luna|35.0
-2354|Seven up|20.0
-482917|Sabritas Adobadas|21.0
-650384|Coca Cola 600 ml|19.0
-119572|Maruchan Instant Lunch|18.0
-803461|Gansito Marinela|24.0
-274905|Leche Lala Entera 1L|32.0
+2920|Sprite|20.0|1|20.0
+4023|Huevos|30.0|10|30.0
+482917|Sabritas Adobadas|21.0|20|32.0
+650384|Coca Cola 600 ml|19.0|20|29.0
+119572|Maruchan Instant Lunch|18.0|25|27.0
+803461|Gansito Marinela|24.0|15|36.0
+274905|Leche Lala Entera 1L|32.0|30|48.0
+4093|Peluche|100.0|2|100.0

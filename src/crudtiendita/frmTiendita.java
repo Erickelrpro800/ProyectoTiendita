@@ -743,13 +743,15 @@ public class frmTiendita extends javax.swing.JFrame {
             documento.add(new Paragraph(" ")); // Un salto de línea para dar espacio
 
             // 5. Creamos la estructura tabular (3 columnas)
-            PdfPTable tabla = new PdfPTable(4);
+            PdfPTable tabla = new PdfPTable(6);
 
             // 6. Agregamos los encabezados de la tabla
             tabla.addCell("CÓDIGO");
             tabla.addCell("DESCRIPCIÓN");
             tabla.addCell("PRECIO ($)");
             tabla.addCell("Estado");
+            tabla.addCell("Cantidad");
+            tabla.addCell("Precio de venta ($)");
 
             // 7. Toma los datos del .txt y los muestra en el PDF
             BufferedReader br = new BufferedReader(new FileReader("Articulos.txt"));
@@ -762,14 +764,17 @@ public class frmTiendita extends javax.swing.JFrame {
 
                 String[] datos = linea.split("\\|");
 
-                if(datos.length >= 3){
+                if(datos.length >= 5){
 
                     tabla.addCell(datos[0]);
                     tabla.addCell(datos[1]);
                     tabla.addCell(datos[2]);
+                    tabla.addCell(datos[3]);
+                    tabla.addCell(datos[4]);
 
                     // CONVERTIR PRECIO
                     double precio = Double.parseDouble(datos[2]);
+                    double venta = Double.parseDouble(datos[4]);
 
                     // CONTAR SEGÚN EL PRECIO
                     if(precio <= 500){
@@ -885,12 +890,12 @@ public class frmTiendita extends javax.swing.JFrame {
             documento.add(fecha);
 
             // 4. Mejoramos la estructura de la Tabla
-            PdfPTable tabla = new PdfPTable(4);
-            tabla.setWidthPercentage(100); // El ancho de la hoja
-            tabla.setWidths(new float[]{2f, 5f, 2f, 2f}); // Tamaños relativos la descripción (5f)
+            PdfPTable tabla = new PdfPTable(6);
+            tabla.setWidthPercentage(110); // El ancho de la hoja
+            tabla.setWidths(new float[]{2f, 5f, 2f, 2f, 2f, 2f}); // Tamaños relativos la descripción (5f)
 
             // 5. Cabeceras con Estilo y Color de Fondo
-            String[] cabeceras = {"CÓDIGO", "DESCRIPCIÓN", "PRECIO ($)", "STATUS"};
+            String[] cabeceras = {"CÓDIGO", "DESCRIPCIÓN", "PRECIO ($)", "STATUS", "CANTIDAD", "PRECIO DE VENTA ($)"};
             for (String texto : cabeceras) {
                 PdfPCell celda = new PdfPCell(new Phrase(texto, fuenteCabeceraTabla));
                 celda.setBackgroundColor(new BaseColor(41, 128, 185)); // Un azul
@@ -906,19 +911,24 @@ public class frmTiendita extends javax.swing.JFrame {
 
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split("\\|");
-                if (datos.length >= 3) {
+                if (datos.length >= 5) {
 
                     // Usamos PdfPCell para inyectar los datos, así podemos alinear los textos
                     tabla.addCell(new PdfPCell(new Phrase(datos[0])));
                     tabla.addCell(new PdfPCell(new Phrase(datos[1])));
+                    tabla.addCell(new PdfPCell(new Phrase(datos[2])));
+                    tabla.addCell(new PdfPCell(new Phrase(datos[3])));
+                    tabla.addCell(new PdfPCell(new Phrase(datos[4]))); 
 
                     // El precio lo alineamos a la derecha (estándar contable)
                     PdfPCell celdaPrecio = new PdfPCell(new Phrase("$" + datos[2]));
+                    PdfPCell celdaVenta = new PdfPCell(new Phrase("$" + datos[4]));
                     celdaPrecio.setHorizontalAlignment(Element.ALIGN_RIGHT);
                     tabla.addCell(celdaPrecio);
 
                     try {
                         totalInversion += Double.parseDouble(datos[2]);
+                        totalInversion += Double.parseDouble(datos[4]);
                     } catch (Exception e) {}
 
                     String status = (Math.random() > 0.5) ? "Disponible" : "Agotado";
@@ -990,21 +1000,21 @@ public class frmTiendita extends javax.swing.JFrame {
             String registroSeleccionado = lstArticulo12.getSelectedValue();
             String[] datos = registroSeleccionado.split("\\|");
             String codigo = datos[0].replace("Codigo: ", "");
-            String descripcion = datos[1].replace(" Descripcion: ", "");
+            String descripcion = datos[1].replace("Descripcion: ", "");
             String precio = datos[2].replace("Precio: ", "");
             String cantidad = datos[3].replace("Cantidad: ", "");
-            String precioventa= datos[4].replace("PrecioVenta:", "");
+            String venta= datos[4].replace("Venta: ", "");
             txtCodigo1.setText(codigo);
             txtDescripcion1.setText(descripcion);
             txtPrecio1.setText(precio);
             txtCantidad1.setText(cantidad);
-            txtVenta1.setText(precioventa);
-            updateArticulo = new clsArticulo(codigo,descripcion,Double.parseDouble(precio),cantidad, Double.parseDouble(precioventa));
+            txtVenta1.setText(venta);
+            updateArticulo = new clsArticulo(codigo,descripcion,Double.parseDouble(precio),cantidad, Double.parseDouble(venta));
             lblCodigo2.setText(codigo);
             lblDescripcion2.setText(descripcion);
             lblPrecio2.setText(precio);
             lblCantidad.setText(cantidad);
-            lblVenta.setText(precioventa);
+            lblVenta.setText(venta);
         }
     }//GEN-LAST:event_lstArticulo12ValueChanged
 
